@@ -23,21 +23,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     // Set up auth state listener
-    const { data: { subscription } } = auth.onAuthStateChange(
-      async (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.email)
-        setSession(session)
-        setUser(session?.user ?? null)
+    const { data: authListener } = auth.onAuthStateChange(
+      async (event, currentSession) => {
+        console.log('Auth state changed:', event, currentSession?.user?.email)
+        setSession(currentSession)
+        setUser(currentSession?.user ?? null)
         
         // Fetch profile data when user logs in
-        if (session?.user) {
+        if (currentSession?.user) {
           setTimeout(async () => {
             try {
-              const { data: profileData, error } = await profiles.getUserProfile(session.user.id)
+              const { data: profileData, error } = await profiles.getUserProfile(currentSession.user.id)
               if (!error && profileData) {
                 setProfile(profileData)
                 // Store in localStorage for compatibility with existing code
-                localStorage.setItem('user_id', session.user.id)
+                localStorage.setItem('user_id', currentSession.user.id)
                 localStorage.setItem('nome', profileData.full_name || '')
                 localStorage.setItem('role', profileData.role || '')
                 localStorage.setItem('parqueSelecionado', profileData.parque_id_principal || '')
@@ -60,13 +60,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     )
 
     // Get initial session
-    auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
+    const getInitialSession = async () => {
+      try {
+        const session = await auth.getSession()
+        if (session) {
+          setSession(session)
+          setUser(session?.user ?? null)
+        }
+      } catch (error) {
+        console.error('Error getting initial session:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-    return () => subscription.unsubscribe()
+    getInitialSession()
+
+    return () => {
+      if (authListener?.subscription) {
+        authListener.subscription.unsubscribe()
+      }
+    }
   }, [])
 
   const signIn = async (email: string, password: string) => {
