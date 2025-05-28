@@ -39,12 +39,100 @@ const Dashboard = () => {
       roles: ['super_admin', 'admin', 'supervisor', 'back_office']
     },
     {
+      id: 'tarefas',
+      name: 'Tarefas',
+      description: 'Gestão de tarefas e workflow',
+      route: '/tarefas',
+      icon: 'tarefas',
+      roles: ['super_admin', 'admin', 'supervisor', 'team_leader']
+    },
+    {
+      id: 'produtividade-condutores',
+      name: 'Produtividade Condutores',
+      description: 'Análise de performance dos condutores',
+      route: '/produtividade-condutores',
+      icon: 'produtividade',
+      roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
+      id: 'projetos',
+      name: 'Projetos',
+      description: 'Gestão de projetos e iniciativas',
+      route: '/projetos',
+      icon: 'projetos',
+      roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
       id: 'recolhas',
       name: 'Recolhas',
       description: 'Gestão de recolhas de viaturas',
       route: '/recolhas',
       icon: 'recolhas',
       roles: ['super_admin', 'admin', 'supervisor', 'team_leader']
+    },
+    {
+      id: 'bi-interno',
+      name: 'BI Interno',
+      description: 'Indicadores e relatórios',
+      route: '/bi-interno',
+      icon: 'bi-interno',
+      roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
+      id: 'perdidos-achados',
+      name: 'Perdidos e Achados',
+      description: 'Gestão de objetos perdidos',
+      route: '/perdidos-achados',
+      icon: 'perdidos',
+      roles: ['super_admin', 'admin', 'supervisor', 'back_office']
+    },
+    {
+      id: 'relatorios',
+      name: 'Relatórios',
+      description: 'Geração de relatórios personalizados',
+      route: '/relatorios',
+      icon: 'relatorios',
+      roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
+      id: 'recursos-humanos',
+      name: 'Recursos Humanos',
+      description: 'Gestão de colaboradores',
+      route: '/recursos-humanos',
+      icon: 'rh',
+      roles: ['super_admin', 'admin']
+    },
+    {
+      id: 'cancelamentos',
+      name: 'Cancelamentos',
+      description: 'Gestão de cancelamentos e reembolsos',
+      route: '/cancelamentos',
+      icon: 'cancelamentos',
+      roles: ['super_admin', 'admin', 'back_office']
+    },
+    {
+      id: 'despesas',
+      name: 'Despesas',
+      description: 'Controlo de despesas operacionais',
+      route: '/despesas',
+      icon: 'despesas',
+      roles: ['super_admin', 'admin', 'tesoureiro']
+    },
+    {
+      id: 'faturacao',
+      name: 'Faturação',
+      description: 'Gestão de faturas e cobrança',
+      route: '/faturacao',
+      icon: 'faturacao',
+      roles: ['super_admin', 'admin', 'back_office']
+    },
+    {
+      id: 'comentarios-reclamacoes',
+      name: 'Comentários e Reclamações',
+      description: 'Gestão de feedback dos clientes',
+      route: '/comentarios-reclamacoes',
+      icon: 'comentarios',
+      roles: ['super_admin', 'admin', 'supervisor', 'back_office']
     },
     {
       id: 'auditorias-internas',
@@ -55,12 +143,68 @@ const Dashboard = () => {
       roles: ['super_admin', 'admin', 'supervisor']
     },
     {
-      id: 'bi-interno',
-      name: 'BI Interno',
-      description: 'Indicadores e relatórios',
-      route: '/bi-interno',
-      icon: 'bi-interno',
+      id: 'comportamentos',
+      name: 'Comportamentos',
+      description: 'Análise comportamental dos colaboradores',
+      route: '/comportamentos',
+      icon: 'comportamentos',
       roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
+      id: 'confirmacao-caixa',
+      name: 'Confirmação de Caixa',
+      description: 'Validação final de caixa',
+      route: '/confirmacao-caixa',
+      icon: 'confirmacao',
+      roles: ['super_admin', 'admin', 'tesoureiro']
+    },
+    {
+      id: 'entregas',
+      name: 'Entregas',
+      description: 'Gestão de entregas e logística',
+      route: '/entregas',
+      icon: 'entregas',
+      roles: ['super_admin', 'admin', 'supervisor', 'team_leader']
+    },
+    {
+      id: 'acessos-alteracoes',
+      name: 'Acessos & Alterações',
+      description: 'Log de acessos e alterações do sistema',
+      route: '/acessos-alteracoes',
+      icon: 'acessos',
+      roles: ['super_admin', 'admin']
+    },
+    {
+      id: 'marketing',
+      name: 'Marketing',
+      description: 'Campanhas e estratégias de marketing',
+      route: '/marketing',
+      icon: 'marketing',
+      roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
+      id: 'formacao-apoio',
+      name: 'Formação & Apoio',
+      description: 'Recursos de formação e suporte',
+      route: '/formacao-apoio',
+      icon: 'formacao',
+      roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
+      id: 'mapa-ocupacao',
+      name: 'Mapa de Ocupação Inteligente',
+      description: 'Visualização da ocupação em tempo real',
+      route: '/mapa-ocupacao',
+      icon: 'mapa',
+      roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
+      id: 'reservas-externas',
+      name: 'Reservas Externas / Agregadores',
+      description: 'Integração com plataformas externas',
+      route: '/reservas-externas',
+      icon: 'agregadores',
+      roles: ['super_admin', 'admin', 'back_office']
     }
   ]
 
