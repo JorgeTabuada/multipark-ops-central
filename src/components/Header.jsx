@@ -1,22 +1,24 @@
 
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { auth } from '../lib/supabaseClient'
+import { useAuth } from '../hooks/useAuth'
 
 const Header = ({ title, showBackButton = false }) => {
   const navigate = useNavigate()
-  const nome = localStorage.getItem('nome') || 'Utilizador'
-  const parque = localStorage.getItem('parqueSelecionado') || 'N/A'
+  const { signOut, profile, user } = useAuth()
 
   const handleLogout = async () => {
-    await auth.signOut()
-    localStorage.clear()
-    navigate('/')
+    await signOut()
+    navigate('/auth')
   }
 
   const handleBack = () => {
     navigate('/dashboard')
   }
+
+  // Use profile data if available, fallback to localStorage for compatibility
+  const nome = profile?.full_name || localStorage.getItem('nome') || user?.email || 'Utilizador'
+  const parque = profile?.parque_id_principal || localStorage.getItem('parqueSelecionado') || 'N/A'
 
   return (
     <header className="header-nav">

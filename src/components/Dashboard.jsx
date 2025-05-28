@@ -1,26 +1,24 @@
 
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 import Header from './Header'
 import ParkSelector from './ParkSelector'
 import AppCard from './AppCard'
 
 const Dashboard = () => {
   const navigate = useNavigate()
+  const { user, profile, loading } = useAuth()
   const [selectedPark, setSelectedPark] = useState('')
   const [availableApps, setAvailableApps] = useState([])
   
-  const nome = localStorage.getItem('nome')
-  const role = localStorage.getItem('role')
-
   // Verificar autenticação
   useEffect(() => {
-    const userId = localStorage.getItem('user_id')
-    if (!userId) {
-      navigate('/')
+    if (!loading && !user) {
+      navigate('/auth')
       return
     }
-  }, [navigate])
+  }, [user, loading, navigate])
 
   // Definir aplicações disponíveis por role
   const allApps = [
@@ -60,18 +58,37 @@ const Dashboard = () => {
 
   // Filtrar apps por role
   useEffect(() => {
-    const filtered = allApps.filter(app => 
-      app.roles.includes(role) || role === 'super_admin'
-    )
-    setAvailableApps(filtered)
-  }, [role])
+    if (profile?.role) {
+      const filtered = allApps.filter(app => 
+        app.roles.includes(profile.role) || profile.role === 'super_admin'
+      )
+      setAvailableApps(filtered)
+    }
+  }, [profile])
 
   const handleParkChange = (parkId) => {
     setSelectedPark(parkId)
   }
 
-  if (!nome) {
-    return <div className="min-h-screen flex items-center justify-center">Carregando...</div>
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Carregando...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!user || !profile) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p>Carregando perfil...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -81,7 +98,7 @@ const Dashboard = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Bem-vindo, {nome}
+            Bem-vindo, {profile.full_name || user.email}
           </h2>
           <p className="text-gray-600">
             Selecione uma aplicação para começar
