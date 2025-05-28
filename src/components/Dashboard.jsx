@@ -47,6 +47,14 @@ const Dashboard = () => {
       roles: ['super_admin', 'admin', 'supervisor', 'team_leader']
     },
     {
+      id: 'auditorias-internas',
+      name: 'Auditorias Internas',
+      description: 'Auditorias de condutores',
+      route: '/auditorias-internas',
+      icon: 'auditorias',
+      roles: ['super_admin', 'admin', 'supervisor']
+    },
+    {
       id: 'bi-interno',
       name: 'BI Interno',
       description: 'Indicadores e relatórios',
